@@ -32,6 +32,8 @@ export  const sendMessage = async(req, res) => {
         if(newMessage){
             conversation.messages.push(newMessage._id)
         }
+
+        // Socket.io functionality
   
         // a small optimisation as they both will run in parellel
         await Promise.all([newMessage.save(),conversation.save()])
@@ -50,13 +52,17 @@ export const receiveMessage=async(req,res)=>{
       const senderId = req.user._id;
 
 
+      //instead of refs i will have all messages linked to it because of this populate method
       const conversation = await Conversation.findOne({
         participants: {$all:[senderId,userToChatId]}
       }).populate("messages")
 
+      if(!conversation){
+        return res.status(200).json([]);
+      }
 
-
-      res.status(200).json(conversation.messages)
+      const messages = conversation.messages
+      res.status(200).json(messages)
     }
     catch (error) {
         console.log("error  in receive Message ", error.message)
