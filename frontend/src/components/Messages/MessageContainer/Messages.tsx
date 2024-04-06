@@ -4,20 +4,21 @@ import MessageInput from './MessageInput'
 
 const Messages = () => {
   return (
-    <div>
-      <div className='flex-1 px-4 overflow-auto '>
+      <div className='flex-1 px-4 overflow-auto'>
         <Message/>
         <Message/>
         <Message/>
+        <Message/>
+        <Message/>
+        <Message/>
+        <Message/>
+
         <Message/>
         <Message/>
         <Message/>
         <Message/>
 
       </div>
-
-      <MessageInput/>
-    </div>
   )
 }
 
